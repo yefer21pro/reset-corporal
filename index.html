@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reset Corporal · Mi Puesto Saludable IPS</title>
+<script>try{var t=localStorage.getItem("mps_tema")||"auto";document.documentElement.dataset.tema=t==="oscuro"||(t==="auto"&&matchMedia("(prefers-color-scheme:dark)").matches)?"oscuro":"claro"}catch(e){document.documentElement.dataset.tema="claro"}</script>
+<meta name="description" content="Reset Corporal: autocuidado biomecánico para los trabajadores de la IPS (Mi Puesto Saludable IPS).">
+<link rel="stylesheet" href="css/estilos.css">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<meta name="theme-color" content="#6A2BE0">
+</head>
+<body>
+<a class="saltar" href="#contenido" id="saltar">Saltar al contenido</a>
+
+<!-- íconos de línea propios (24 px, trazo 2) -->
+<svg class="sprite" aria-hidden="true">
+  <symbol id="logo-app" viewBox="0 0 40 40"><rect width="40" height="40" rx="12" fill="#6A2BE0"/><circle cx="14.4" cy="10.6" r="3.9" fill="#FF7AA8"/><rect x="10.4" y="16.4" width="8.2" height="17" rx="4.1" fill="#fff"/><rect x="22" y="16.4" width="8.2" height="17" rx="4.1" fill="#fff" opacity=".93"/></symbol>
+  <symbol id="i-informe" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></symbol>
+  <symbol id="i-hoy" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-pausa" viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="2"/><path d="M5 9.5l7 1.5 7-1.5M12 11v4.5M12 15.5L8.5 21M12 15.5l3.5 5.5"/></symbol>
+  <symbol id="i-puesto" viewBox="0 0 24 24"><path d="M7 3v10h9M7 13v8M16 13v8M5 9h4M14 9h6M17 5v4"/></symbol>
+  <symbol id="i-dolor" viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="2"/><path d="M8 9h8l-1 6h-6zM9.5 15l-1 6M14.5 15l1 6"/><path d="M17.5 4.5l2-1.5M18.5 7.5h2.5"/></symbol>
+  <symbol id="i-ajustes" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></symbol>
+  <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-campana" viewBox="0 0 24 24"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15zM10 20.5a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-calendario" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M4 10h16M8.5 3v4M15.5 3v4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-descargar" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+  <symbol id="i-voz" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+  <symbol id="i-dato" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+  <symbol id="i-escudo" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-medalla" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 21l5-3 5 3-1.5-7"/></symbol>
+  <symbol id="i-sonrisa" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14.2q4 3.6 8 0M9 9.6h.01M15 9.6h.01"/></symbol>
+  <symbol id="i-luna" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+  <symbol id="i-cerrar" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-atras" viewBox="0 0 24 24"><path d="M6 6v12M19 6l-9 6 9 6z"/></symbol>
+  <symbol id="i-adelante" viewBox="0 0 24 24"><path d="M18 6v12M5 6l9 6-9 6z"/></symbol>
+  <symbol id="i-pausar" viewBox="0 0 24 24"><path d="M8.5 5.5v13M15.5 5.5v13" stroke-width="3"/></symbol>
+  <symbol id="i-usuario" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/></symbol>
+</svg>
+
+<div class="app">
+  <aside class="lateral">
+    <div class="marca">
+      <svg class="marca-icono" aria-hidden="true"><use href="#logo-app"/></svg>
+      <div><strong>Reset Corporal</strong><span>Mi Puesto Saludable IPS</span></div>
+    </div>
+    <nav class="menu" aria-label="Secciones">
+      <button data-tab="hoy" aria-current="page"><svg class="ico"><use href="#i-hoy"/></svg>Hoy</button>
+      <button data-tab="pausas"><svg class="ico"><use href="#i-pausa"/></svg>Pausas activas</button>
+      <button data-tab="puesto"><svg class="ico"><use href="#i-puesto"/></svg>Mi puesto</button>
+      <button data-tab="reporte"><svg class="ico"><use href="#i-dolor"/></svg>¿Le duele algo?</button>
+      <button data-tab="informe"><svg class="ico"><use href="#i-informe"/></svg>Mi reporte</button>
+      <hr>
+      <button data-tab="ajustes"><svg class="ico"><use href="#i-ajustes"/></svg>Mis datos y recordatorios</button>
+    </nav>
+    <div class="lateral-pie">
+      <div class="sesion" id="sesion"></div>
+    </div>
+  </aside>
+
+  <main class="contenido" id="contenido" tabindex="-1">
+    <div class="aviso-pausa" id="recordatorio" role="alert" hidden>
+      <svg class="ico"><use href="#i-campana"/></svg>
+      <span class="aviso-texto">Han pasado <b id="recMin">60</b> minutos. Es hora de su pausa de <b id="recQue">cuello</b>.</span>
+      <span class="fila">
+        <button class="btn claro" id="recIr" type="button"><svg class="ico"><use href="#i-play"/></svg>Hacer la pausa</button>
+        <button class="btn borde-claro" id="recLuego" type="button">En 10 minutos</button>
+      </span>
+    </div>
+
+    <!-- HOY -->
+    <section class="vista" id="v-hoy">
+      <h1 class="solo-lectores">Hoy</h1>
+      <div class="hero">
+        <div class="hero-texto">
+          <p class="hero-saludo" id="hoySaludo">Buenos días</p>
+          <p class="hero-broma" id="hoyBroma" hidden></p>
+          <div class="hero-nombre" id="hoyPideNombre" hidden>
+            <label for="hoyNombre">¿Cómo quiere que le llamemos?</label>
+            <div class="fila"><input type="text" id="hoyNombre" placeholder="Su nombre o apodo" maxlength="30" autocomplete="off"><button class="btn claro" type="button" id="hoyGuardarNombre">Listo</button></div>
+            <small>Solo lo usa la voz guía y se queda en este equipo.</small>
+          </div>
+          <p class="hero-etiqueta">Su pausa recomendada</p>
+          <h2 id="hoyRutina">Cuello</h2>
+          <p class="hero-motivo" id="hoyMotivo"></p>
+          <div class="fila">
+            <button class="btn grande claro" type="button" id="hoyEmpezar"><svg class="ico"><use href="#i-play"/></svg>Empezar ahora · <span id="hoyDur">2 min</span></button>
+            <button class="btn grande borde-claro" type="button" data-ir="pausas">Ver todas las pausas</button>
+          </div>
+        </div>
+        <div class="hero-figura" id="hoyFigura" aria-hidden="true"></div>
+      </div>
+
+      <div class="chiste" id="hoyChiste" hidden>
+        <svg class="ico"><use href="#i-sonrisa"/></svg>
+        <div><p class="chiste-etiqueta">Para sonreír</p><p class="chiste-txt" id="hoyChisteTxt"></p></div>
+      </div>
+
+      <div class="resumen">
+        <div class="tarjeta mini-tarjeta">
+          <p class="mini-titulo"><svg class="ico"><use href="#i-check"/></svg>Pausas de hoy</p>
+          <p class="cifra"><b id="hoyHechas">0</b> <span>de <span id="hoyMeta">6</span></span></p>
+          <div class="progreso" id="hoyProgreso"></div>
+        </div>
+        <div class="tarjeta mini-tarjeta">
+          <p class="mini-titulo"><svg class="ico"><use href="#i-calendario"/></svg>Próxima en su agenda</p>
+          <p class="cifra" id="hoyProxima"><b>—</b></p>
+          <p class="nota" id="hoyProximaQue"></p>
+        </div>
+        <div class="tarjeta mini-tarjeta">
+          <p class="mini-titulo"><svg class="ico"><use href="#i-campana"/></svg>Recordatorio en pantalla</p>
+          <label class="interruptor"><input type="checkbox" id="hoyRec"><span class="interruptor-pista"></span><span id="hoyRecTxt">Desactivado</span></label>
+          <p class="nota">Le avisa mientras la app esté abierta.</p>
+        </div>
+      </div>
+
+      <div class="atajos">
+        <div class="tarjeta atajo">
+          <span class="atajo-ico"><svg class="ico"><use href="#i-puesto"/></svg></span>
+          <div>
+            <h2>Mi puesto</h2>
+            <p class="nota" id="hoyPuesto">Revise en 2 minutos si su silla, pantalla y ratón están bien ajustados.</p>
+          </div>
+          <button class="btn sec" type="button" data-ir="puesto">Revisar mi puesto<svg class="ico"><use href="#i-flecha"/></svg></button>
+        </div>
+        <div class="tarjeta atajo">
+          <span class="atajo-ico"><svg class="ico"><use href="#i-dolor"/></svg></span>
+          <div>
+            <h2>¿Le duele algo?</h2>
+            <p class="nota">Cuéntenos en un minuto dónde siente molestias. SST le hace seguimiento.</p>
+          </div>
+          <button class="btn sec" type="button" data-ir="reporte">Reportar molestia<svg class="ico"><use href="#i-flecha"/></svg></button>
+        </div>
+      </div>
+
+      <div class="tarjeta" id="hoyInsignias">
+        <div class="fila" style="justify-content:space-between;align-items:baseline">
+          <h2 class="titulo-ico"><svg class="ico"><use href="#i-medalla"/></svg>Mis insignias</h2>
+          <span class="nota" id="insigniasResumen"></span>
+        </div>
+        <p class="nota">Son solo suyas: no compiten con nadie y se guardan en este equipo.</p>
+        <div class="insignias" id="insigniasLista"></div>
+      </div>
+
+      <div class="aviso-datos" id="avisoReporte" hidden>
+        <svg class="ico"><use href="#i-informe"/></svg>
+        <p><b>Descargue su reporte de este mes.</b> Es su copia de seguridad y lo que puede enviar a SST.</p>
+        <span class="fila"><button class="btn sec" type="button" data-ir="informe">Ir a Mi reporte</button><button class="btn discreto" type="button" id="avisoReporteLuego">Más tarde</button></span>
+      </div>
+
+      <div class="aviso-datos" id="avisoDatos" hidden>
+        <svg class="ico"><use href="#i-escudo"/></svg>
+        <p><b>Sus registros viven solo en este navegador.</b> Use siempre el mismo y no borre los datos del sitio.</p>
+        <span class="fila"><button class="btn sec" type="button" data-ir="ajustes">Ver recomendaciones</button><button class="btn discreto" type="button" id="avisoDatosOk">Entendido</button></span>
+      </div>
+
+      <div class="dato-estudio">
+        <svg class="ico"><use href="#i-dato"/></svg>
+        <p>En la evaluación de 2026, el <b>82,5 %</b> de los 57 trabajadores reportó molestias musculoesqueléticas en el último año. Los puntos críticos fueron el cuello (<b>63,2 %</b>), la espalda baja (<b>59,6 %</b>) y el miembro superior, y el apoyo lumbar faltaba en 9 de cada 10 puestos.</p>
+      </div>
+    </section>
+
+    <!-- PAUSAS -->
+    <section class="vista" id="v-pausas" hidden>
+      <header class="encabezado">
+        <h1>Pausas activas</h1>
+        <p class="entrada">Elija una pausa: una figura le muestra cada movimiento y una voz le guía por su nombre. Hágalo despacio y sin dolor; si algo duele, deténgase y repórtelo.</p>
+      </header>
+
+      <div class="rutinas" id="rutinas"></div>
+    </section>
+
+    <!-- MI PUESTO -->
+    <section class="vista" id="v-puesto" hidden>
+      <header class="encabezado">
+        <h1>Mi puesto</h1>
+        <p class="entrada">Responda mirando su puesto ahora mismo. Es un tamizaje orientado en el método ROSA; no reemplaza la evaluación del profesional de SST.</p>
+      </header>
+      <form class="tarjeta" id="fPuesto"></form>
+      <div class="tarjeta" id="rPuesto" tabindex="-1" aria-label="Resultado de la revisión de su puesto" hidden></div>
+    </section>
+
+    <!-- REPORTE -->
+    <section class="vista" id="v-reporte" hidden>
+      <header class="encabezado">
+        <h1>¿Le duele algo?</h1>
+        <p class="entrada">Basado en el Cuestionario Nórdico. Toque en el cuerpo las zonas con dolor, molestia o adormecimiento en los últimos 7 días y marque qué tan fuerte es.</p>
+      </header>
+      <form class="tarjeta" id="fReporte">
+        <div class="reporte-grid">
+          <div class="mapa" id="mapa"></div>
+          <div class="zonas-col"><h2 class="titulo-ico">Zonas con molestia</h2><div class="zonas" id="zonas"></div></div>
+        </div>
+        <div class="pregunta"><p>¿Alguna de estas molestias le impidió hacer su trabajo normal en los últimos 7 días?</p>
+          <div class="opciones"><label><input type="radio" name="impide" value="si">Sí</label><label><input type="radio" name="impide" value="no" checked>No</label></div></div>
+        <div><button class="btn" type="submit">Enviar reporte</button></div>
+        <p class="nota">Sus respuestas se guardan con su código, no con su nombre (Ley 1581 de 2012). Solo el equipo de SST ve el consolidado.</p>
+      </form>
+      <div id="rReporte" tabindex="-1" aria-label="Resultado de su reporte" hidden></div>
+    </section>
+
+    <!-- MIS DATOS Y RECORDATORIOS -->
+    <section class="vista" id="v-ajustes" hidden>
+      <header class="encabezado">
+        <h1>Mis datos y recordatorios</h1>
+        <p class="entrada">Todo lo que configure aquí se guarda solo en este equipo.</p>
+      </header>
+
+      <div class="tarjeta cuidado" id="cuidado">
+        <h2 class="titulo-ico"><svg class="ico"><use href="#i-escudo"/></svg>Cuide sus datos</h2>
+        <p class="nota">Sus revisiones y reportes se guardan solo en este navegador de este equipo. No hay servidor: si se borran, no se pueden recuperar.</p>
+        <ul class="cuidados">
+          <li><b>Use siempre el mismo navegador</b> (Chrome o Edge) y la misma cuenta de Windows. En otro navegador o en otro equipo empezará de cero.</li>
+          <li><b>No use ventanas de incógnito o privadas.</b> Al cerrarlas se pierde todo lo que registró.</li>
+          <li><b>No borre «Cookies y otros datos de sitios»</b> cuando limpie el historial del navegador.</li>
+          <li><b>No desinstale ni restablezca el navegador</b> sin avisar antes al equipo de SST.</li>
+        </ul>
+        <p class="estado-datos" id="estadoDatos"></p>
+      </div>
+
+      <div class="tarjeta">
+        <h2 class="titulo-ico"><svg class="ico"><use href="#i-usuario"/></svg>Sus datos de trabajo</h2>
+        <p class="nota">Use el código que le asignó Seguridad y Salud en el Trabajo. La app no pide su nombre para los registros.</p>
+        <div class="campos">
+          <div class="campo"><label for="codigo">Código del trabajador</label><input type="text" id="codigo" placeholder="Ej.: T-023" maxlength="12" autocomplete="off"></div>
+          <div class="campo"><label for="grupo">Tipo de vinculación</label><select id="grupo"><option value="">Seleccione</option><option>OPS</option><option>Nombramiento</option><option>Uniformado</option></select></div>
+          <div class="campo"><label for="area">Área</label><select id="area"><option value="">Seleccione</option><option>Asistencial</option><option>Administrativa</option><option>Mixta</option></select></div>
+        </div>
+      </div>
+
+      <div class="tarjeta">
+        <h2 class="titulo-ico"><svg class="ico"><use href="#i-voz"/></svg>Voz guía</h2>
+        <div class="campos">
+          <div class="campo"><label for="nombre">¿Cómo quiere que le llame?</label><input type="text" id="nombre" placeholder="Ej.: Astrid" maxlength="30" autocomplete="off"><small>Su nombre se queda solo en este equipo.</small></div>
+          <div class="campo"><label for="voz">Voz guía</label><select id="voz"><option value="1">Activada</option><option value="0">Silenciada</option></select></div>
+        </div>
+      </div>
+
+      <div class="tarjeta">
+        <h2 class="titulo-ico"><svg class="ico"><use href="#i-sonrisa"/></svg>Tono de la app</h2>
+        <p class="nota">Elija cuánto humor quiere. En «¿Le duele algo?» y después de reportar un dolor fuerte, la app siempre es seria.</p>
+        <div class="opciones" role="radiogroup" aria-label="Tono de la app">
+          <label><input type="radio" name="tono" value="serio">Serio</label>
+          <label><input type="radio" name="tono" value="cercano">Cercano</label>
+          <label><input type="radio" name="tono" value="divertido">Divertido</label>
+        </div>
+        <p class="nota" id="tonoDesc"></p>
+      </div>
+
+      <div class="tarjeta">
+        <h2 class="titulo-ico"><svg class="ico"><use href="#i-luna"/></svg>Apariencia</h2>
+        <p class="nota">Elija una pantalla clara, oscura o que siga la configuración de Windows.</p>
+        <div class="opciones" role="radiogroup" aria-label="Apariencia">
+          <label><input type="radio" name="tema" value="claro">Clara</label>
+          <label><input type="radio" name="tema" value="oscuro">Oscura</label>
+          <label><input type="radio" name="tema" value="auto">Automática</label>
+        </div>
+      </div>
+
+      <div class="tarjeta">
+        <h2 class="titulo-ico"><svg class="ico"><use href="#i-campana"/></svg>Recordatorio en pantalla</h2>
+        <div class="campos">
+          <div class="campo"><label for="recCada">Mientras la app esté abierta, avisarme cada</label><select id="recCada"><option value="0">No avisar</option><option value="45">45 minutos</option><option value="60">60 minutos</option><option value="90">90 minutos</option></select></div>
+          <p class="nota campo">Cada aviso le propone una pausa distinta.</p>
+        </div>
+      </div>
+
+      <div class="tarjeta">
+        <h2 class="titulo-ico"><svg class="ico"><use href="#i-campana"/></svg>Avisos del sistema</h2>
+        <p class="nota">Si los activa, Windows le muestra una notificación cuando toca la pausa, aunque esté en otra ventana. Funciona mientras Reset Corporal esté abierto en el navegador y tenga elegido un tiempo en «Recordatorio en pantalla».</p>
+        <div class="fila">
+          <button class="btn sec" type="button" id="notifActivar"><svg class="ico"><use href="#i-campana"/></svg>Activar avisos del sistema</button>
+          <button class="btn discreto" type="button" id="notifProbar" hidden>Enviar un aviso de prueba</button>
+        </div>
+        <p class="nota estado-datos" id="notifEstado" role="status"></p>
+      </div>
+
+      <div class="tarjeta" id="pwaCaja">
+        <h2 class="titulo-ico"><svg class="ico"><use href="#i-descargar"/></svg>Instalar la app</h2>
+        <div class="fila"><button class="btn sec" type="button" id="pwaInstalar" hidden><svg class="ico"><use href="#i-descargar"/></svg>Instalar Reset Corporal en este equipo</button></div>
+        <p class="nota" id="pwaEstado" role="status"></p>
+      </div>
+
+      <div class="tarjeta">
+        <h2 class="titulo-ico"><svg class="ico"><use href="#i-calendario"/></svg>Mi agenda de pausas</h2>
+        <p class="nota">Elija la hora de cada pausa y descargue la agenda. Ábrala una sola vez en su calendario (Outlook, Google Calendar o el del celular): desde ese día le avisa a cada hora, con el nombre de la pausa. Las pausas activas aquí también son su meta diaria en «Hoy».</p>
+        <div class="agenda" id="agenda"></div>
+        <div class="campos">
+          <div class="campo"><label for="dias">Días</label><select id="dias"><option value="MO,TU,WE,TH,FR">Lunes a viernes</option><option value="MO,TU,WE,TH,FR,SA">Lunes a sábado</option><option value="MO,TU,WE,TH,FR,SA,SU">Todos los días</option></select></div>
+          <div class="campo fin"><button class="btn" type="button" id="bIcs"><svg class="ico"><use href="#i-descargar"/></svg>Descargar agenda</button></div>
+        </div>
+        <p class="nota" id="notaAgenda">Deje activado el sonido de las notificaciones del calendario.</p>
+      </div>
+    </section>
+
+    <!-- MI REPORTE -->
+    <section class="vista" id="v-informe" hidden>
+      <header class="encabezado">
+        <h1>Mi reporte</h1>
+        <p class="entrada">Aquí está lo que registró en este equipo. Descárguelo cada cierto tiempo y, si SST se lo pide, envíeselo por correo o entréguelo en la oficina.</p>
+      </header>
+
+      <div class="tarjeta no-imprimir">
+        <div class="campos">
+          <div class="campo"><label for="infPeriodo">Periodo del reporte</label><select id="infPeriodo"><option value="30">Últimos 30 días</option><option value="90">Últimos 3 meses</option><option value="0">Todo lo registrado</option></select></div>
+          <div class="campo fin"><div class="fila">
+            <button class="btn" type="button" id="infPdf"><svg class="ico"><use href="#i-informe"/></svg>Imprimir o guardar en PDF</button>
+            <button class="btn sec" type="button" id="infCsv"><svg class="ico"><use href="#i-descargar"/></svg>Descargar CSV</button>
+          </div></div>
+        </div>
+        <p class="nota">El PDF se crea con el cuadro de impresión del navegador: elija «Guardar como PDF» como destino. El CSV se abre en Excel y es el que SST puede juntar con los de otros trabajadores.</p>
+        <p class="nota estado-datos" id="infAviso" role="status"></p>
+      </div>
+
+      <div class="tarjeta no-imprimir">
+        <h2 class="titulo-ico"><svg class="ico"><use href="#i-puesto"/></svg>Elementos de apoyo</h2>
+        <p class="nota">Si necesita algún elemento para su puesto, o SST ya se lo entregó, márquelo aquí. Aparecerá en su reporte.</p>
+        <div class="elementos-lista" id="infElementosLista"></div>
+      </div>
+
+      <article class="tarjeta informe" id="informe" aria-label="Vista previa del reporte"></article>
+    </section>
+
+    <footer class="pie">Prototipo académico · Maestría en Gerencia de la SST · UNIMINUTO. Basado en los resultados del estudio de exposición a riesgo biomecánico (2026).</footer>
+  </main>
+</div>
+
+<!-- sesión de pausa a pantalla completa -->
+<div class="sesion-pausa" id="reproductor" role="dialog" aria-modal="true" aria-labelledby="pTitulo" hidden>
+  <header class="sp-barra">
+    <div><p class="sp-rutina" id="pTitulo"></p><p class="sp-contador" id="pContador"></p></div>
+    <div class="sp-segmentos" id="pSegmentos" aria-hidden="true"></div>
+    <button class="sp-cerrar" id="pTerminar" type="button" aria-label="Salir de la pausa"><svg class="ico"><use href="#i-cerrar"/></svg></button>
+  </header>
+  <div class="sp-cuerpo" id="pCuerpo">
+    <div class="sp-escena">
+      <div class="sp-fondo"></div>
+      <div class="sp-respira" id="pRespira" hidden></div>
+      <div class="sp-figura" id="escena"></div>
+      <span class="sp-lado" id="pLado" hidden>Cambie de lado</span>
+      <p class="sp-globo" id="pGlobo" role="status" hidden></p>
+    </div>
+    <div class="sp-panel">
+      <p class="solo-lectores" id="pAnuncio" aria-live="polite"></p>
+      <h2 class="sp-paso" id="pPaso"></h2>
+      <p class="sp-como" id="pComo"></p>
+      <p class="sp-indicacion" id="pIndicacion"></p>
+      <div class="sp-reloj" role="timer" aria-label="Segundos restantes">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="sp-aro-fondo" cx="60" cy="60" r="52"/><circle class="sp-aro" id="pAro" cx="60" cy="60" r="52"/></svg>
+        <div><span id="pReloj">5</span><small>segundos</small></div>
+      </div>
+      <div class="sp-controles">
+        <button class="sp-btn" id="pAnterior" type="button" aria-label="Paso anterior"><svg class="ico"><use href="#i-atras"/></svg></button>
+        <button class="sp-btn principal" id="pPausar" type="button" aria-label="Pausar"><svg class="ico"><use href="#i-pausar"/></svg></button>
+        <button class="sp-btn" id="pSiguiente" type="button" aria-label="Paso siguiente"><svg class="ico"><use href="#i-adelante"/></svg></button>
+      </div>
+      <label class="interruptor"><input type="checkbox" id="pVoz"><span class="interruptor-pista"></span>Voz guía</label>
+      <p class="sp-teclas">Barra espaciadora: pausar · Flechas: cambiar de paso · Esc: salir</p>
+    </div>
+  </div>
+  <div class="sp-fin" id="pFin" hidden>
+    <div class="sp-check"><svg class="ico"><use href="#i-check"/></svg></div>
+    <h2>Pausa completada</h2>
+    <p id="pFinTxt">Vuelva a su puesto con la espalda apoyada en el respaldo.</p>
+    <p class="nota" id="pFinNota" hidden>Vuelva a su puesto con la espalda apoyada en el respaldo.</p>
+    <p class="sp-insignia" id="pFinInsignia" hidden><svg class="ico"><use href="#i-medalla"/></svg><span id="pFinInsigniaTxt"></span></p>
+    <p class="sp-hoy" id="pFinHoy"></p>
+    <div class="fila"><button class="btn grande" id="pVolver" type="button">Volver a Hoy</button><button class="btn grande sec" id="pOtra" type="button">Hacer otra pausa</button></div>
+  </div>
+</div>
+
+<!-- se pide el código solo cuando hace falta guardar -->
+<dialog class="dialogo" id="dPerfil" aria-labelledby="dPerfilTitulo">
+  <form method="dialog" id="fPerfil">
+    <h2 id="dPerfilTitulo">Antes de guardar, ¿quién es usted?</h2>
+    <p class="nota">Use el código que le asignó SST. Solo se pide una vez y queda guardado en este equipo. La app no pide su nombre.</p>
+    <div class="campos columna">
+      <div class="campo"><label for="dCodigo">Código del trabajador</label><input type="text" id="dCodigo" placeholder="Ej.: T-023" maxlength="12" autocomplete="off" required></div>
+      <div class="campo"><label for="dGrupo">Tipo de vinculación</label><select id="dGrupo" required><option value="">Seleccione</option><option>OPS</option><option>Nombramiento</option><option>Uniformado</option></select></div>
+      <div class="campo"><label for="dArea">Área</label><select id="dArea" required><option value="">Seleccione</option><option>Asistencial</option><option>Administrativa</option><option>Mixta</option></select></div>
+    </div>
+    <div class="fila fin">
+      <button class="btn discreto" type="button" id="dCancelar">Cancelar</button>
+      <button class="btn" type="submit" value="ok">Guardar y continuar</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="js/datos.js"></script>
+<script src="js/comun.js"></script>
+<script src="js/tema.js"></script>
+<script src="js/personaje.js"></script>
+<script src="js/humor.js"></script>
+<script src="js/pausas.js"></script>
+<script src="js/alertas.js"></script>
+<script src="js/puesto.js"></script>
+<script src="js/reporte.js"></script>
+<script src="js/informe.js"></script>
+<script src="js/hoy.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

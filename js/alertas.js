@@ -16,13 +16,30 @@
     const cuerpo = M.humor() > 0 ? "Su silla pide un descanso de usted. Son pocos minutos." : "Haga una pausa guiada de pocos minutos.";
     return { titulo: `${n}es hora de su pausa de ${r.name}`.replace(/^./, c => c.toUpperCase()), cuerpo };
   }
-  function notificar(r) {
-    if (!activos()) return;
+  /* En el celular (Android) el navegador no deja crear la notificación desde la página:
+     hay que pedírsela al service worker. En el PC se usa ese mismo camino y, si no hay, el directo. */
+  async function notificar(r) {
+    if (!activos()) return false;
+    const { titulo, cuerpo } = texto(r);
+    const opciones = { body: cuerpo, tag: "reset-corporal", icon: "icons/icon-192.png", badge: "icons/icon-192.png", requireInteraction: true, data: { rutina: r.id } };
     try {
-      const n = new Notification(texto(r).titulo, { body: texto(r).cuerpo, tag: "reset-corporal", requireInteraction: true });
-      n.onclick = () => { window.focus(); n.close(); $("#recordatorio").hidden = true; M.iniciarPausa(r.id); programar(+sel.value); };
-    } catch (e) { /* si el navegador no deja, queda el aviso en pantalla */ }
+      if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
+        const reg = await navigator.serviceWorker.ready;
+        await reg.showNotification(titulo, opciones);
+        return true;
+      }
+      const n = new Notification(titulo, opciones);
+      n.onclick = () => { window.focus(); n.close(); abrirPausa(r.id); };
+      return true;
+    } catch (e) { return false; /* queda el aviso en pantalla */ }
   }
+  function abrirPausa(id) { $("#recordatorio").hidden = true; M.iniciarPausa(id); programar(+sel.value); }
+  /* la notificación toca la app abierta (mensaje) o la abre con ?pausa=... */
+  if ("serviceWorker" in navigator) navigator.serviceWorker.addEventListener("message", e => { if (e.data && e.data.tipo === "pausa") abrirPausa(e.data.rutina); });
+  window.addEventListener("load", () => {
+    const id = new URLSearchParams(location.search).get("pausa");
+    if (id && M.ROUT.some(x => x.id === id)) { history.replaceState(null, "", location.pathname); abrirPausa(id); }
+  });
 
   const estado = $("#notifEstado"), btnAct = $("#notifActivar"), btnProbar = $("#notifProbar");
   function pintarEstado() {
@@ -42,7 +59,11 @@
     if (p === "granted") { M.ls.set("mps_notif", "1"); pintarEstado(); }
     else { pintarEstado(); if (p !== "denied") estado.textContent = "No se activaron los avisos: el navegador no recibió su permiso."; }
   });
-  btnProbar.addEventListener("click", () => notificar(M.ROUT[0]));
+  btnProbar.addEventListener("click", async () => {
+    const ok = await notificar(M.ROUT[0]);
+    estado.textContent = ok ? "Aviso de prueba enviado. Si no lo ve, revise que las notificaciones de este sitio o de la app estén permitidas en la configuración del teléfono o de Windows."
+                            : "El navegador no dejó mostrar el aviso. Revise los permisos de notificaciones del sitio.";
+  });
 
   /* ---------- recordatorio ---------- */
   function programar(minutos) {

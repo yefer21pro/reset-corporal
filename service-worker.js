@@ -2,7 +2,7 @@
    IMPORTANTE: cada vez que cambie un archivo de la app, suba el número de VERSION
    para que los equipos descarguen la versión nueva. Los datos del trabajador (localStorage)
    no se tocan nunca. */
-const VERSION = "reset-corporal-v3";
+const VERSION = "reset-corporal-v4";
 const ARCHIVOS = [
   "./", "./index.html", "./manifest.json", "./css/estilos.css", "./fonts/nunito.woff2",
   "./icons/icon-192.png", "./icons/icon-512.png", "./icons/icon-maskable-512.png",
@@ -20,4 +20,14 @@ self.addEventListener("activate", e => {
 self.addEventListener("fetch", e => {
   if (e.request.method !== "GET") return;
   e.respondWith(caches.match(e.request, { ignoreSearch: true }).then(r => r || fetch(e.request).catch(() => caches.match("./index.html"))));
+});
+
+/* al tocar la notificación: abrir o enfocar la app y empezar la pausa */
+self.addEventListener("notificationclick", e => {
+  e.notification.close();
+  const rutina = (e.notification.data && e.notification.data.rutina) || "cuello";
+  e.waitUntil(self.clients.matchAll({ type: "window", includeUncontrolled: true }).then(lista => {
+    if (lista.length) { lista[0].postMessage({ tipo: "pausa", rutina }); return lista[0].focus(); }
+    return self.clients.openWindow("./index.html?pausa=" + encodeURIComponent(rutina));
+  }));
 });

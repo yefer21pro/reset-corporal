@@ -154,7 +154,7 @@ button,input,select{font:inherit;color:inherit}
 .pie{margin-top:16px;padding-top:16px;border-top:1px solid var(--linea);font-size:.85rem;color:var(--tinta-2)}
 
 @media (max-width:900px){
-  .app{grid-template-columns:1fr}
+  .app{grid-template-columns:minmax(0,1fr)}
   .lateral{position:static;height:auto;padding:12px 16px;gap:12px;box-shadow:0 1px 0 var(--linea)}
   .menu{display:flex;overflow-x:auto}
   .menu hr,.lateral-pie .sesion{display:none}
@@ -505,6 +505,46 @@ td.num,th.num{text-align:right}
 .inf-aviso{padding:12px 14px;border-radius:var(--radio-sm);background:var(--ambar-suave);color:var(--ambar);font-size:.9rem;font-weight:700}
 .vacio{color:var(--tinta-2);font-style:italic}
 .inf-pie{padding-top:14px;border-top:1px solid var(--linea);font-size:.82rem;color:var(--tinta-2)}
+
+/* ---------- celular (hasta 700 px) ---------- */
+@media (max-width:700px){
+  html{-webkit-text-size-adjust:100%}
+  input[type=text],input[type=password],input[type=time],select{font-size:16px;min-height:48px}
+  .lateral{position:sticky;top:0;z-index:20;padding:8px 12px 6px;gap:6px}
+  .marca{padding-inline:4px}.marca-icono{width:34px;height:34px}.marca strong{font-size:.98rem}.marca span{font-size:.76rem}
+  .menu{gap:6px;padding-bottom:4px;scroll-snap-type:x proximity;scrollbar-width:none}
+  .menu::-webkit-scrollbar{display:none}
+  .menu button{min-height:46px;padding:10px 16px;scroll-snap-align:center}
+  .contenido{padding:18px 14px 40px;gap:18px}
+  h1{font-size:1.65rem}
+  .tarjeta{padding:18px}
+  .hero{padding:24px 20px;border-radius:20px}
+  .hero .fila,.aviso-pausa .fila{display:grid;gap:10px}
+  .hero .fila .btn,.aviso-pausa .fila .btn,.aviso-datos .fila .btn{width:100%}
+  .btn{min-height:50px}
+  .fila .btn{flex:1 1 100%}
+  .campos .fila .btn{flex:1 1 100%}
+  .campo.fin{flex:1 1 100%}
+  .btn{white-space:normal;text-align:center}
+  .aviso-datos .fila{width:100%}
+  .elem-fila{grid-template-columns:minmax(0,1fr)}
+  .franja{grid-template-columns:auto minmax(0,1fr)}
+  .franja input[type=text],.franja input[type=time],.franja select{grid-column:1/-1}
+  .opciones label{min-height:48px}
+  .chequeo li label,.zona label{min-height:44px}
+  .opcion-grande{min-height:76px}
+  .informe{padding:18px}
+  .inf-cab{flex-wrap:wrap}
+  .inf-resumen{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tabla{margin-inline:-4px}
+  .informe th,.informe td{padding:6px 8px;font-size:.82rem}
+  .informe th{white-space:normal}
+  .sp-btn{width:60px;height:60px}.sp-btn.principal{width:76px;height:76px}
+  .sp-cuerpo{padding-bottom:calc(24px + env(safe-area-inset-bottom))}
+  .sp-barra{padding-top:calc(14px + env(safe-area-inset-top))}
+  .sp-globo{font-size:.98rem;max-width:70%}
+  .sp-indicacion{font-size:1.5rem}
+}
 
 /* impresión: solo el reporte, en blanco y negro con color de apoyo */
 @media print{

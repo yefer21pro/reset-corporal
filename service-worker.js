@@ -2,7 +2,7 @@
    IMPORTANTE: cada vez que cambie un archivo de la app, suba el número de VERSION
    para que los equipos descarguen la versión nueva. Los datos del trabajador (localStorage)
    no se tocan nunca. */
-const VERSION = "reset-corporal-v4";
+const VERSION = "reset-corporal-v5";
 const ARCHIVOS = [
   "./", "./index.html", "./manifest.json", "./css/estilos.css", "./fonts/nunito.woff2",
   "./icons/icon-192.png", "./icons/icon-512.png", "./icons/icon-maskable-512.png",

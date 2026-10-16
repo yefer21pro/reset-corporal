@@ -19,6 +19,9 @@
   M.mostrar = function (tab) {
     vistaActual = tab;
     $$("[data-tab]").forEach(b => { if (b.dataset.tab === tab) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current"); });
+    /* en el celular el menú se desliza: centrar la sección actual (sin scrollIntoView, que mueve el foco del teclado) */
+    const menu = document.querySelector(".menu"), act = menu && menu.querySelector("[aria-current]");
+    if (act && menu.scrollWidth > menu.clientWidth) menu.scrollLeft = act.offsetLeft - (menu.clientWidth - act.offsetWidth) / 2;
     $$("main > section.vista").forEach(s => { s.hidden = s.id !== "v-" + tab; });
     try { history.replaceState(null, "", "#" + tab); } catch (e) {}
     window.scrollTo({ top: 0 });

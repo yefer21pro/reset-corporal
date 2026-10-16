@@ -33,7 +33,7 @@
   /* ---------- reporte en pantalla (es el mismo que se imprime) ---------- */
   function tabla(cabeza, filas, vacio) {
     if (!filas.length) return `<p class="vacio">${vacio}</p>`;
-    return `<div class="tabla"><table><thead><tr>${cabeza.map(c => `<th scope="col">${c}</th>`).join("")}</tr></thead><tbody>${filas.map(f => `<tr>${f.map(c => `<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+    return `<div class="tabla" tabindex="0" role="group" aria-label="Tabla del reporte"><table><thead><tr>${cabeza.map(c => `<th scope="col">${c}</th>`).join("")}</tr></thead><tbody>${filas.map(f => `<tr>${f.map(c => `<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
   }
 
   function pintar() {

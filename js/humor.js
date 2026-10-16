@@ -86,6 +86,9 @@
     const f = elegir(lista, "globo-" + rutina); usadas.add(f); return f;
   };
 
+  /* igual que fraseGlobo, pero si ya salieron todas vuelve a empezar (para usarla en varios lugares de la app) */
+  M.fraseNueva = rutina => M.fraseGlobo(rutina) || (M.reiniciarFrases(), M.fraseGlobo(rutina));
+
   /* ---------- 2. mensaje al terminar la pausa ---------- */
   const FINALES = [
     "Misión cumplida. Su espalda ya le escribió una carta de agradecimiento.",

@@ -54,9 +54,7 @@
       <button data-tab="pausas"><svg class="ico"><use href="#i-pausa"/></svg>Pausas activas</button>
       <button data-tab="puesto"><svg class="ico"><use href="#i-puesto"/></svg>Mi puesto</button>
       <button data-tab="reporte"><svg class="ico"><use href="#i-dolor"/></svg>¿Le duele algo?</button>
-      <button data-tab="informe"><svg class="ico"><use href="#i-informe"/></svg>Mi reporte</button>
-      <hr>
-      <button data-tab="ajustes"><svg class="ico"><use href="#i-ajustes"/></svg>Mis datos y recordatorios</button>
+      <button data-tab="informe" data-tambien="ajustes"><svg class="ico"><use href="#i-usuario"/></svg>Mi perfil</button>
     </nav>
     <div class="lateral-pie">
       <div class="sesion" id="sesion"></div>
@@ -93,7 +91,7 @@
             <button class="btn grande borde-claro" type="button" data-ir="pausas">Ver todas las pausas</button>
           </div>
         </div>
-        <div class="hero-figura" id="hoyFigura" aria-hidden="true"></div>
+        <button class="hero-figura" type="button" id="hoyFiguraBtn" aria-label="Tocar al personaje para que le diga algo"><p class="hero-globo" id="hoyGlobo" hidden></p><span id="hoyFigura" aria-hidden="true"></span></button>
       </div>
 
       <div class="chiste" id="hoyChiste" hidden>
@@ -101,40 +99,25 @@
         <div><p class="chiste-etiqueta">Para sonreír</p><p class="chiste-txt" id="hoyChisteTxt"></p></div>
       </div>
 
-      <div class="resumen">
-        <div class="tarjeta mini-tarjeta">
+      <div class="tarjeta resumen-uno">
+        <div class="res-item">
           <p class="mini-titulo"><svg class="ico"><use href="#i-check"/></svg>Pausas de hoy</p>
           <p class="cifra"><b id="hoyHechas">0</b> <span>de <span id="hoyMeta">6</span></span></p>
           <div class="progreso" id="hoyProgreso"></div>
         </div>
-        <div class="tarjeta mini-tarjeta">
-          <p class="mini-titulo"><svg class="ico"><use href="#i-calendario"/></svg>Próxima en su agenda</p>
+        <div class="res-item">
+          <p class="mini-titulo"><svg class="ico"><use href="#i-calendario"/></svg>Próxima</p>
           <p class="cifra" id="hoyProxima"><b>—</b></p>
           <p class="nota" id="hoyProximaQue"></p>
         </div>
-        <div class="tarjeta mini-tarjeta">
-          <p class="mini-titulo"><svg class="ico"><use href="#i-campana"/></svg>Recordatorio en pantalla</p>
+        <div class="res-item">
+          <p class="mini-titulo"><svg class="ico"><use href="#i-campana"/></svg>Recordatorio</p>
           <label class="interruptor"><input type="checkbox" id="hoyRec"><span class="interruptor-pista"></span><span id="hoyRecTxt">Desactivado</span></label>
-          <p class="nota">Le avisa mientras la app esté abierta.</p>
         </div>
-      </div>
-
-      <div class="atajos">
-        <div class="tarjeta atajo">
-          <span class="atajo-ico"><svg class="ico"><use href="#i-puesto"/></svg></span>
-          <div>
-            <h2>Mi puesto</h2>
-            <p class="nota" id="hoyPuesto">Revise en 2 minutos si su silla, pantalla y ratón están bien ajustados.</p>
-          </div>
-          <button class="btn sec" type="button" data-ir="puesto">Revisar mi puesto<svg class="ico"><use href="#i-flecha"/></svg></button>
-        </div>
-        <div class="tarjeta atajo">
-          <span class="atajo-ico"><svg class="ico"><use href="#i-dolor"/></svg></span>
-          <div>
-            <h2>¿Le duele algo?</h2>
-            <p class="nota">Cuéntenos en un minuto dónde siente molestias. SST le hace seguimiento.</p>
-          </div>
-          <button class="btn sec" type="button" data-ir="reporte">Reportar molestia<svg class="ico"><use href="#i-flecha"/></svg></button>
+        <div class="res-item">
+          <p class="mini-titulo"><svg class="ico"><use href="#i-puesto"/></svg>Mi puesto</p>
+          <p class="nota" id="hoyPuesto">Revíselo en 2 minutos.</p>
+          <button class="btn discreto" type="button" data-ir="puesto">Revisar<svg class="ico"><use href="#i-flecha"/></svg></button>
         </div>
       </div>
 
@@ -143,8 +126,12 @@
           <h2 class="titulo-ico"><svg class="ico"><use href="#i-medalla"/></svg>Mis insignias</h2>
           <span class="nota" id="insigniasResumen"></span>
         </div>
-        <p class="nota">Son solo suyas: no compiten con nadie y se guardan en este equipo.</p>
-        <div class="insignias" id="insigniasLista"></div>
+        <div class="insignias-fila" id="insigniasRecientes"></div>
+        <details class="mas">
+          <summary>Ver todas y lo que falta para ganarlas</summary>
+          <p class="nota">Son solo suyas: no compiten con nadie y se guardan en este equipo.</p>
+          <div class="insignias" id="insigniasLista"></div>
+        </details>
       </div>
 
       <div class="aviso-datos" id="avisoReporte" hidden>
@@ -159,10 +146,6 @@
         <span class="fila"><button class="btn sec" type="button" data-ir="ajustes">Ver recomendaciones</button><button class="btn discreto" type="button" id="avisoDatosOk">Entendido</button></span>
       </div>
 
-      <div class="dato-estudio">
-        <svg class="ico"><use href="#i-dato"/></svg>
-        <p>En la evaluación de 2026, el <b>82,5 %</b> de los 57 trabajadores reportó molestias musculoesqueléticas en el último año. Los puntos críticos fueron el cuello (<b>63,2 %</b>), la espalda baja (<b>59,6 %</b>) y el miembro superior, y el apoyo lumbar faltaba en 9 de cada 10 puestos.</p>
-      </div>
     </section>
 
     <!-- PAUSAS -->
@@ -206,8 +189,13 @@
 
     <!-- MIS DATOS Y RECORDATORIOS -->
     <section class="vista" id="v-ajustes" hidden>
+      <nav class="subtabs no-imprimir" aria-label="Mi perfil">
+        <button type="button" data-ir="informe">Mi reporte</button>
+        <button type="button" data-ir="ajustes" aria-current="page">Ajustes y recordatorios</button>
+      </nav>
+
       <header class="encabezado">
-        <h1>Mis datos y recordatorios</h1>
+        <h1>Ajustes y recordatorios</h1>
         <p class="entrada">Todo lo que configure aquí se guarda solo en este equipo.</p>
       </header>
 
@@ -224,17 +212,13 @@
       </div>
 
       <div class="tarjeta">
-        <h2 class="titulo-ico"><svg class="ico"><use href="#i-usuario"/></svg>Sus datos de trabajo</h2>
-        <p class="nota">Use el código que le asignó Seguridad y Salud en el Trabajo. La app no pide su nombre para los registros.</p>
+        <h2 class="titulo-ico"><svg class="ico"><use href="#i-usuario"/></svg>Mis datos</h2>
+        <p class="nota">Use el código que le asignó Seguridad y Salud en el Trabajo. Los registros se guardan con el código, nunca con su nombre.</p>
         <div class="campos">
           <div class="campo"><label for="codigo">Código del trabajador</label><input type="text" id="codigo" placeholder="Ej.: T-023" maxlength="12" autocomplete="off"></div>
           <div class="campo"><label for="grupo">Tipo de vinculación</label><select id="grupo"><option value="">Seleccione</option><option>OPS</option><option>Nombramiento</option><option>Uniformado</option></select></div>
           <div class="campo"><label for="area">Área</label><select id="area"><option value="">Seleccione</option><option>Asistencial</option><option>Administrativa</option><option>Mixta</option></select></div>
         </div>
-      </div>
-
-      <div class="tarjeta">
-        <h2 class="titulo-ico"><svg class="ico"><use href="#i-voz"/></svg>Voz guía</h2>
         <div class="campos">
           <div class="campo"><label for="nombre">¿Cómo quiere que le llame?</label><input type="text" id="nombre" placeholder="Ej.: Astrid" maxlength="30" autocomplete="off"><small>Su nombre se queda solo en este equipo.</small></div>
           <div class="campo"><label for="voz">Voz guía</label><select id="voz"><option value="1">Activada</option><option value="0">Silenciada</option></select></div>
@@ -242,8 +226,34 @@
       </div>
 
       <div class="tarjeta">
-        <h2 class="titulo-ico"><svg class="ico"><use href="#i-sonrisa"/></svg>Tono de la app</h2>
-        <p class="nota">Elija cuánto humor quiere. En «¿Le duele algo?» y después de reportar un dolor fuerte, la app siempre es seria.</p>
+        <h2 class="titulo-ico"><svg class="ico"><use href="#i-campana"/></svg>Avisos de pausa</h2>
+        <div class="campos">
+          <div class="campo"><label for="recCada">Mientras la app esté abierta, avisarme cada</label><select id="recCada"><option value="0">No avisar</option><option value="45">45 minutos</option><option value="60">60 minutos</option><option value="90">90 minutos</option></select></div>
+        </div>
+        <label class="casilla"><input type="checkbox" id="notifCheck"><span>También como notificación del sistema (aunque esté en otra ventana)</span></label>
+        <div class="fila"><button class="btn discreto" type="button" id="notifProbar" hidden>Enviar un aviso de prueba</button></div>
+        <p class="nota estado-datos" id="notifEstado" role="status"></p>
+        <details class="mas">
+          <summary>Agenda de pausas en mi calendario (opcional)</summary>
+          <p class="nota">Elija la hora de cada pausa y descargue la agenda. Ábrala una sola vez en su calendario (Outlook, Google Calendar o el del celular): desde ese día le avisa a cada hora, con el nombre de la pausa. Las pausas activas aquí también son su meta diaria en «Hoy».</p>
+          <div class="agenda" id="agenda"></div>
+          <div class="campos">
+            <div class="campo"><label for="dias">Días</label><select id="dias"><option value="MO,TU,WE,TH,FR">Lunes a viernes</option><option value="MO,TU,WE,TH,FR,SA">Lunes a sábado</option><option value="MO,TU,WE,TH,FR,SA,SU">Todos los días</option></select></div>
+            <div class="campo fin"><button class="btn" type="button" id="bIcs"><svg class="ico"><use href="#i-descargar"/></svg>Descargar agenda</button></div>
+          </div>
+          <p class="nota" id="notaAgenda">Deje activado el sonido de las notificaciones del calendario.</p>
+        </details>
+      </div>
+
+      <div class="tarjeta">
+        <h2 class="titulo-ico"><svg class="ico"><use href="#i-luna"/></svg>Apariencia y tono</h2>
+        <p class="nota">Pantalla clara, oscura o la de Windows.</p>
+        <div class="opciones" role="radiogroup" aria-label="Apariencia">
+          <label><input type="radio" name="tema" value="claro">Clara</label>
+          <label><input type="radio" name="tema" value="oscuro">Oscura</label>
+          <label><input type="radio" name="tema" value="auto">Automática</label>
+        </div>
+        <p class="nota">Cuánto humor quiere. En «¿Le duele algo?» y después de reportar un dolor fuerte, la app siempre es seria.</p>
         <div class="opciones" role="radiogroup" aria-label="Tono de la app">
           <label><input type="radio" name="tono" value="serio">Serio</label>
           <label><input type="radio" name="tono" value="cercano">Cercano</label>
@@ -252,54 +262,20 @@
         <p class="nota" id="tonoDesc"></p>
       </div>
 
-      <div class="tarjeta">
-        <h2 class="titulo-ico"><svg class="ico"><use href="#i-luna"/></svg>Apariencia</h2>
-        <p class="nota">Elija una pantalla clara, oscura o que siga la configuración de Windows.</p>
-        <div class="opciones" role="radiogroup" aria-label="Apariencia">
-          <label><input type="radio" name="tema" value="claro">Clara</label>
-          <label><input type="radio" name="tema" value="oscuro">Oscura</label>
-          <label><input type="radio" name="tema" value="auto">Automática</label>
-        </div>
-      </div>
-
-      <div class="tarjeta">
-        <h2 class="titulo-ico"><svg class="ico"><use href="#i-campana"/></svg>Recordatorio en pantalla</h2>
-        <div class="campos">
-          <div class="campo"><label for="recCada">Mientras la app esté abierta, avisarme cada</label><select id="recCada"><option value="0">No avisar</option><option value="45">45 minutos</option><option value="60">60 minutos</option><option value="90">90 minutos</option></select></div>
-          <p class="nota campo">Cada aviso le propone una pausa distinta.</p>
-        </div>
-      </div>
-
-      <div class="tarjeta">
-        <h2 class="titulo-ico"><svg class="ico"><use href="#i-campana"/></svg>Avisos del sistema</h2>
-        <p class="nota">Si los activa, Windows le muestra una notificación cuando toca la pausa, aunque esté en otra ventana. Funciona mientras Reset Corporal esté abierto en el navegador y tenga elegido un tiempo en «Recordatorio en pantalla».</p>
-        <div class="fila">
-          <button class="btn sec" type="button" id="notifActivar"><svg class="ico"><use href="#i-campana"/></svg>Activar avisos del sistema</button>
-          <button class="btn discreto" type="button" id="notifProbar" hidden>Enviar un aviso de prueba</button>
-        </div>
-        <p class="nota estado-datos" id="notifEstado" role="status"></p>
-      </div>
-
       <div class="tarjeta" id="pwaCaja">
         <h2 class="titulo-ico"><svg class="ico"><use href="#i-descargar"/></svg>Instalar la app</h2>
         <div class="fila"><button class="btn sec" type="button" id="pwaInstalar" hidden><svg class="ico"><use href="#i-descargar"/></svg>Instalar Reset Corporal en este equipo</button></div>
         <p class="nota" id="pwaEstado" role="status"></p>
       </div>
-
-      <div class="tarjeta">
-        <h2 class="titulo-ico"><svg class="ico"><use href="#i-calendario"/></svg>Mi agenda de pausas</h2>
-        <p class="nota">Elija la hora de cada pausa y descargue la agenda. Ábrala una sola vez en su calendario (Outlook, Google Calendar o el del celular): desde ese día le avisa a cada hora, con el nombre de la pausa. Las pausas activas aquí también son su meta diaria en «Hoy».</p>
-        <div class="agenda" id="agenda"></div>
-        <div class="campos">
-          <div class="campo"><label for="dias">Días</label><select id="dias"><option value="MO,TU,WE,TH,FR">Lunes a viernes</option><option value="MO,TU,WE,TH,FR,SA">Lunes a sábado</option><option value="MO,TU,WE,TH,FR,SA,SU">Todos los días</option></select></div>
-          <div class="campo fin"><button class="btn" type="button" id="bIcs"><svg class="ico"><use href="#i-descargar"/></svg>Descargar agenda</button></div>
-        </div>
-        <p class="nota" id="notaAgenda">Deje activado el sonido de las notificaciones del calendario.</p>
-      </div>
     </section>
 
     <!-- MI REPORTE -->
     <section class="vista" id="v-informe" hidden>
+      <nav class="subtabs no-imprimir" aria-label="Mi perfil">
+        <button type="button" data-ir="informe" aria-current="page">Mi reporte</button>
+        <button type="button" data-ir="ajustes">Ajustes y recordatorios</button>
+      </nav>
+
       <header class="encabezado">
         <h1>Mi reporte</h1>
         <p class="entrada">Aquí está lo que registró en este equipo. Descárguelo cada cierto tiempo y, si SST se lo pide, envíeselo por correo o entréguelo en la oficina.</p>
@@ -326,7 +302,7 @@
       <article class="tarjeta informe" id="informe" aria-label="Vista previa del reporte"></article>
     </section>
 
-    <footer class="pie">Prototipo académico · Maestría en Gerencia de la SST · UNIMINUTO. Basado en los resultados del estudio de exposición a riesgo biomecánico (2026).</footer>
+    <footer class="pie">Prototipo académico · Maestría en Gerencia de la SST · UNIMINUTO.</footer>
   </main>
 </div>
 

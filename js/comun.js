@@ -11,14 +11,15 @@
 
   /* ---------- navegación ---------- */
   M.VISTAS = ["hoy", "pausas", "puesto", "reporte", "informe", "ajustes"];
-  const TITULOS = { hoy: "Hoy", pausas: "Pausas activas", puesto: "Mi puesto", reporte: "¿Le duele algo?", informe: "Mi reporte", ajustes: "Mis datos y recordatorios" };
+  const TITULOS = { hoy: "Hoy", pausas: "Pausas activas", puesto: "Mi puesto", reporte: "¿Le duele algo?", informe: "Mi reporte", ajustes: "Ajustes y recordatorios" };
   let primera = true;
   const alMostrar = {};
   let vistaActual = "hoy";
   M.alMostrar = (tab, fn) => { alMostrar[tab] = fn; };
   M.mostrar = function (tab) {
     vistaActual = tab;
-    $$("[data-tab]").forEach(b => { if (b.dataset.tab === tab) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current"); });
+    $$("[data-tab]").forEach(b => { if (b.dataset.tab === tab || b.dataset.tambien === tab) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current"); });
+    $$(".subtabs [data-ir]").forEach(b => { if (b.dataset.ir === tab) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current"); });
     /* en el celular el menú se desliza: centrar la sección actual (sin scrollIntoView, que mueve el foco del teclado) */
     const menu = document.querySelector(".menu"), act = menu && menu.querySelector("[aria-current]");
     if (act && menu.scrollWidth > menu.clientWidth) menu.scrollLeft = act.offsetLeft - (menu.clientWidth - act.offsetWidth) / 2;

@@ -10,10 +10,28 @@
   vz.addEventListener("change", () => { M.ls.set("mps_voz", vz.value); if (vz.value !== "1") M.callar(); });
 
   $("#rutinas").innerHTML = M.ROUT.map(r => `<button class="rutina" type="button" data-r="${r.id}" id="r-${r.id}">
-    <div class="mini"></div><span class="dato">${r.fact}</span><h2>${r.name}</h2>
+    <div class="mini"></div><span class="dato">${r.fact}</span><h2>${r.name}</h2><p class="rutina-frase" hidden></p>
     <span class="dur"><svg class="ico"><use href="#i-play"/></svg>${M.fmt(M.duracion(r))} min · Empezar</span>
     <ol>${r.steps.map(s => `<li>${s[0]}</li>`).join("")}</ol></button>`).join("");
   M.ROUT.forEach(r => M.Personaje.montar($(`#r-${r.id} .mini`), r.steps[0][3], { mini: true, estatico: true }));
+  /* cada tarjeta trae una frase del personaje (otra cada vez que se abre la sección) */
+  M.alMostrar("pausas", () => {
+    const humor = M.humor(); M.reiniciarFrases();
+    M.ROUT.forEach(r => { const f = $(`#r-${r.id} .rutina-frase`); f.hidden = humor < 1; if (humor >= 1) f.textContent = M.fraseGlobo(r.id); });
+  });
+
+  /* confeti al terminar una pausa (más si ganó una insignia); no se muestra si el sistema pide menos movimiento */
+  function confeti(n) {
+    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const caja = document.createElement("div"); caja.className = "confeti"; caja.setAttribute("aria-hidden", "true");
+    const col = ["#6A2BE0", "#D6246E", "#FF7AA8", "#FFC83D", "#14A3B3", "#FFFFFF"];
+    for (let k = 0; k < n; k++) {
+      const s = document.createElement("i");
+      s.style.cssText = `left:${Math.random() * 100}%;background:${col[k % col.length]};animation-delay:${(Math.random() * 0.6).toFixed(2)}s;animation-duration:${(1.8 + Math.random() * 1.4).toFixed(2)}s;--giro:${Math.round(Math.random() * 720 - 360)}deg;--deriva:${Math.round(Math.random() * 160 - 80)}px`;
+      caja.appendChild(s);
+    }
+    $("#pFin").appendChild(caja); setTimeout(() => caja.remove(), 4000);
+  }
 
   /* ---------- sesión de pausa a pantalla completa ---------- */
   const R = $("#reproductor"), ARO = 2 * Math.PI * 52, PREPARA = 5;
@@ -96,6 +114,7 @@
     $("#pFinTxt").textContent = msg || "Vuelva a su puesto con la espalda apoyada en el respaldo.";
     $("#pFinNota").hidden = !msg;
     const nuevas = M.nuevasInsignias();
+    confeti(nuevas.length ? 70 : 32);
     $("#pFinInsignia").hidden = !nuevas.length;
     $("#pFinInsigniaTxt").textContent = nuevas.length ? `${nuevas.length === 1 ? "Nueva insignia" : "Nuevas insignias"}: ${nuevas.map(x => x.nombre).join(", ")}` : "";
     M.hablar(msg ? `Muy bien${conNombre()}. ${msg}${nuevas.length ? " Ganó la insignia " + nuevas[0].nombre + "." : ""}`

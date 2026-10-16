@@ -1,4 +1,4 @@
-/* hoy.js - pantalla de entrada: pausa recomendada, pausas de hoy, próxima pausa y accesos rápidos.
+/* hoy.js - pantalla de entrada: pausa recomendada, pausas de hoy, próxima pausa y estado del puesto.
    Se carga al final porque usa funciones de los demás módulos. */
 (function (M) {
   "use strict";
@@ -49,6 +49,10 @@
   function pintarInsignias() {
     const l = M.insignias().sort((a, b) => b.ganada - a.ganada), g = l.filter(x => x.ganada).length;
     $("#insigniasResumen").textContent = `${g} de ${l.length} ganadas`;
+    const rec = l.filter(x => x.ganada).slice(-4).reverse();
+    $("#insigniasRecientes").innerHTML = rec.length
+      ? rec.map(i => `<span class="chip-ins"><svg class="ico" aria-hidden="true"><use href="#i-medalla"/></svg>${esc(i.nombre)}</span>`).join("")
+      : `<p class="nota">Todavía no tiene insignias: la primera llega con su primera pausa.</p>`;
     $("#insigniasLista").innerHTML = l.map(i => `<div class="insignia ${i.ganada ? "ganada" : "bloqueada"}"><span class="ins-ico"><svg class="ico" aria-hidden="true"><use href="#i-medalla"/></svg></span><div><b>${esc(i.nombre)}</b><small>${i.ganada ? "Ganada" : `${i.valor} de ${i.meta} · ${esc(i.desc)}`}</small></div></div>`).join("");
   }
   let recomendada = "cuello";
@@ -66,6 +70,10 @@
     $("#hoyMotivo").textContent = motivo;
     $("#hoyDur").textContent = M.fmt(M.duracion(r)) + " min";
     M.Personaje.montar($("#hoyFigura"), r.steps[0][3], { mini: true });
+    /* el personaje habla: una frase de la rutina recomendada; al tocarlo dice otra */
+    const g = $("#hoyGlobo"); g.hidden = humor < 1;
+    if (humor >= 1) g.textContent = M.fraseNueva(id);
+    $("#hoyFiguraBtn").disabled = humor < 1;
 
     const ag = agenda(), meta = Math.max(ag.length, 1), hechas = M.pausasHoy().n;
     $("#hoyHechas").textContent = hechas; $("#hoyMeta").textContent = meta;
@@ -81,12 +89,13 @@
     const ev = ultimoDe("evaluaciones", M.perfil().codigo);
     const NIV = { verde: ["ok", "Puesto adecuado"], amarillo: ["warn", "Ajustes necesarios"], rojo: ["bad", "Riesgo alto"] };
     $("#hoyPuesto").innerHTML = ev
-      ? `Última revisión: <span class="etiqueta ${NIV[ev.nivel][0]}">${NIV[ev.nivel][1]}</span> el ${esc(new Date(ev.fecha).toLocaleDateString("es-CO"))}. Revíselo de nuevo si cambió algo.`
-      : "Revise en 2 minutos si su silla, pantalla y ratón están bien ajustados.";
+      ? `<span class="etiqueta ${NIV[ev.nivel][0]}">${NIV[ev.nivel][1]}</span> · ${esc(new Date(ev.fecha).toLocaleDateString("es-CO"))}`
+      : "Revíselo en 2 minutos.";
     M.pintarSesion(); avisoReporte();
   }
 
   $("#hoyEmpezar").addEventListener("click", () => M.iniciarPausa(recomendada));
+  $("#hoyFiguraBtn").addEventListener("click", () => { if (M.humor() > 0) { const g = $("#hoyGlobo"); g.textContent = M.fraseNueva(recomendada); g.hidden = false; g.style.animation = "none"; g.offsetWidth; g.style.animation = ""; } });
   $("#hoyGuardarNombre").addEventListener("click", () => {
     const v = $("#hoyNombre").value.trim(); if (!v) { $("#hoyNombre").focus(); return; }
     $("#nombre").value = v; M.ls.set("mps_nombre", v); pintar();

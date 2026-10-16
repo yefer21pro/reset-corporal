@@ -13,7 +13,7 @@
 
   function texto(r) {
     const n = M.nombre() ? M.nombre() + ", " : "";
-    const cuerpo = M.humor() > 0 ? "Su silla pide un descanso de usted. Son pocos minutos." : "Haga una pausa guiada de pocos minutos.";
+    const cuerpo = M.humor() > 0 ? M.fraseNueva(r.id) : "Haga una pausa guiada de pocos minutos.";
     return { titulo: `${n}es hora de su pausa de ${r.name}`.replace(/^./, c => c.toUpperCase()), cuerpo };
   }
   /* En el celular (Android) el navegador no deja crear la notificación desde la página:
@@ -41,20 +41,17 @@
     if (id && M.ROUT.some(x => x.id === id)) { history.replaceState(null, "", location.pathname); abrirPausa(id); }
   });
 
-  const estado = $("#notifEstado"), btnAct = $("#notifActivar"), btnProbar = $("#notifProbar");
+  const estado = $("#notifEstado"), chk = $("#notifCheck"), btnProbar = $("#notifProbar");
   function pintarEstado() {
-    btnProbar.hidden = true;
-    if (!hayApi) { estado.textContent = "Este navegador no permite avisos del sistema. Se seguirá usando el aviso en pantalla."; btnAct.hidden = true; return; }
-    const p = Notification.permission;
-    if (p === "denied") { estado.textContent = "Los avisos están bloqueados en el navegador. Para activarlos, haga clic en el candado junto a la dirección, permita las notificaciones y recargue la página."; btnAct.hidden = false; btnAct.textContent = "Activar avisos del sistema"; return; }
-    if (activos()) {
-      estado.textContent = +sel.value ? `Activados. Le avisaremos cada ${sel.value} minutos mientras Reset Corporal esté abierto.` : "Activados, pero falta elegir cada cuánto avisarle en «Recordatorio en pantalla».";
-      btnAct.textContent = "Desactivar avisos del sistema"; btnProbar.hidden = false;
-    } else { estado.textContent = ""; btnAct.textContent = "Activar avisos del sistema"; }
-    btnAct.hidden = false;
+    btnProbar.hidden = true; chk.disabled = false;
+    if (!hayApi) { chk.checked = false; chk.disabled = true; estado.textContent = "Este navegador no permite avisos del sistema. Se seguirá usando el aviso en pantalla."; return; }
+    if (Notification.permission === "denied") { chk.checked = false; estado.textContent = "Los avisos están bloqueados en el navegador. Para activarlos, haga clic en el candado junto a la dirección, permita las notificaciones y recargue la página."; return; }
+    chk.checked = activos();
+    if (activos()) { btnProbar.hidden = false; estado.textContent = +sel.value ? "" : "Falta elegir cada cuánto avisarle."; }
+    else estado.textContent = "";
   }
-  btnAct.addEventListener("click", async () => {
-    if (activos()) { M.ls.set("mps_notif", "0"); pintarEstado(); return; }
+  chk.addEventListener("change", async () => {
+    if (!chk.checked) { M.ls.set("mps_notif", "0"); pintarEstado(); return; }
     const p = Notification.permission === "granted" ? "granted" : await Notification.requestPermission();
     if (p === "granted") { M.ls.set("mps_notif", "1"); pintarEstado(); }
     else { pintarEstado(); if (p !== "denied") estado.textContent = "No se activaron los avisos: el navegador no recibió su permiso."; }

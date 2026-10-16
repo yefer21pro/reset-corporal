@@ -539,7 +539,22 @@ td.num,th.num{text-align:right}
   .tabla{margin-inline:-4px}
   .informe th,.informe td{padding:6px 8px;font-size:.82rem}
   .informe th{white-space:normal}
-  .sp-btn{width:60px;height:60px}.sp-btn.principal{width:76px;height:76px}
+  .sesion-pausa{grid-template-rows:auto minmax(0,1fr)}
+  .sp-barra{padding-bottom:6px}
+  .sp-cuerpo{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;gap:8px;padding:0 16px calc(14px + env(safe-area-inset-bottom));overflow:hidden;align-items:stretch}
+  .sp-escena{container-type:size;width:100%;height:100%;aspect-ratio:auto;justify-self:stretch;align-self:stretch}
+  .sp-fondo,.sp-respira{inset:0;margin:auto;width:min(96cqw,96cqh);height:min(96cqw,96cqh)}
+  .sp-figura{width:min(86cqw,calc(94cqh * .8))}
+  .sp-panel{grid-template-columns:auto minmax(0,1fr);gap:6px 14px;align-items:center;justify-items:stretch;max-width:none}
+  .sp-paso,.sp-como,.sp-indicacion,.sp-panel .interruptor{grid-column:1/-1}
+  .sp-paso{font-size:1.4rem}
+  .sp-como{font-size:.95rem;line-height:1.35}
+  .sp-indicacion{min-height:0;font-size:1.25rem}
+  .sp-indicacion:empty{display:none}
+  .sp-reloj{width:92px;height:92px}.sp-reloj span{font-size:1.9rem}.sp-reloj small{font-size:.7rem}
+  .sp-controles{justify-self:end;gap:10px}
+  .sp-btn{width:54px;height:54px}.sp-btn.principal{width:68px;height:68px}
+  .sp-teclas{display:none}
   .sp-cuerpo{padding-bottom:calc(24px + env(safe-area-inset-bottom))}
   .sp-barra{padding-top:calc(14px + env(safe-area-inset-top))}
   .sp-globo{font-size:.98rem;max-width:70%}

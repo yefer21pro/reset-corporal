@@ -280,7 +280,12 @@
 
   /* ---------- motor ---------- */
   const DEF = { x: 0, y: 0, r: 0, sx: 1, sy: 1, o: 1 };
-  const suave = t => -(Math.cos(Math.PI * t) - 1) / 2;
+  /* suavizado: mezcla de curva en S y línea recta, para que arranque y frene sin sentirse mecánico */
+  const suave = t => 0.6 * (-(Math.cos(Math.PI * t) - 1) / 2) + 0.4 * t;
+  /* velocidad general (la respiración guiada va a su ritmo, atada a la voz) */
+  const VEL = 1.45;
+  /* las partes de las puntas siguen un poco después que el resto (inercia) */
+  const RETRASO = { cabeza: 90, cara: 90, ojos: 90, oreja_i: 90, oreja_d: 90, ante_i: 80, ante_d: 80, mano_i: 150, mano_d: 150, rodilla_i: 60, rodilla_d: 60, pie_i: 110, pie_d: 110 };
   const reducir = () => window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   let contador = 0;
 
@@ -342,7 +347,8 @@
       const cuadros = a.cuadros.map(([c, d, h]) => [mezclar(base, c), d, h]);
       const inicio = (a.inicio || []).map(([b, c, d, h]) => [mezclar(BASE[b], c), d, h]);
       const juntas = [...new Set([...inicio, ...cuadros].flatMap(c => Object.keys(c[0])))];
-      ["ojos", "silla"].forEach(j => { if (!juntas.includes(j)) juntas.push(j); });
+      ["ojos", "silla", "cuerpo", "pecho", "hombros", "cabeza"].forEach(j => { if (nodos[j] && !juntas.includes(j)) juntas.push(j); });
+      const vel = a === A.breathe ? 1 : VEL;
       const ciclo = cuadros.reduce((s, c) => s + c[1] + c[2], 0);
       const previo = inicio.reduce((s, c) => s + c[1] + c[2], 0);
       let parpadeo = performance.now() + 2500;
@@ -350,10 +356,16 @@
       const inst = {
         svg, pausado: false, t0: performance.now(), pausaEn: 0,
         dibujar(now) {
-          const e = Math.max(0, now - this.t0);
-          const [pa, pb, t] = e < previo ? poseEn(inicio, e, true) : poseEn(cuadros, (e - previo) % ciclo);
-          const pose = interp(pa, pb, t, juntas);
-          if (now > parpadeo) { pose.ojos.sy *= .1; if (now > parpadeo + 140) parpadeo = now + 2500 + Math.random() * 3000; }
+          const e = Math.max(0, now - this.t0) * vel;
+          const en = x => { const q = Math.max(0, x); const [pa, pb, t] = q < previo ? poseEn(inicio, q, true) : poseEn(cuadros, (q - previo) % ciclo); return interp(pa, pb, t, juntas); };
+          const pose = en(e), tarde = {};
+          juntas.forEach(j => { const r = RETRASO[j]; if (r) { tarde[r] = tarde[r] || en(e - r); pose[j] = tarde[r][j]; } });
+          /* vida en reposo: respiración y balanceo muy leves, también mientras sostiene una postura */
+          if (nodos.pecho) { const v = { ...DEF, ...pose.pecho }, k = Math.sin(now / 640); v.sx *= 1 + 0.012 * k; v.sy *= 1 + 0.016 * k; pose.pecho = v; }
+          if (nodos.hombros) { const v = { ...DEF, ...pose.hombros }; v.y += 0.8 * Math.sin(now / 640 + 0.4); pose.hombros = v; }
+          if (nodos.cuerpo) { const v = { ...DEF, ...pose.cuerpo }; v.r += 0.35 * Math.sin(now / 1350); pose.cuerpo = v; }
+          if (nodos.cabeza) { const v = { ...DEF, ...pose.cabeza }; v.r += 0.6 * Math.sin(now / 1700 + 1); pose.cabeza = v; }
+          if (now > parpadeo) { pose.ojos = { ...DEF, ...pose.ojos }; pose.ojos.sy *= .1; if (now > parpadeo + 140) parpadeo = now + 2500 + Math.random() * 3000; }
           aplicar(nodos, pose, juntas);
         },
         pausar() { if (!this.pausado) { this.pausado = true; this.pausaEn = performance.now(); } },
